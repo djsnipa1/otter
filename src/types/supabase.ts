@@ -9,36 +9,6 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      bookmark_tags: {
-        Row: {
-          bookmark_id: string
-          tag_id: string
-        }
-        Insert: {
-          bookmark_id: string
-          tag_id: string
-        }
-        Update: {
-          bookmark_id?: string
-          tag_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "bookmark_tags_bookmark_id_fkey"
-            columns: ["bookmark_id"]
-            isOneToOne: false
-            referencedRelation: "bookmarks"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "bookmark_tags_tag_id_fkey"
-            columns: ["tag_id"]
-            isOneToOne: false
-            referencedRelation: "tags"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       bookmarks: {
         Row: {
           click_count: number
@@ -103,7 +73,6 @@ export type Database = {
         Row: {
           avatar_url: string | null
           id: string
-          settings_collections_visible: boolean
           settings_group_by_date: boolean | null
           settings_pinned_tags: string[]
           settings_tags_visible: boolean
@@ -115,7 +84,6 @@ export type Database = {
         Insert: {
           avatar_url?: string | null
           id: string
-          settings_collections_visible?: boolean
           settings_group_by_date?: boolean | null
           settings_pinned_tags?: string[]
           settings_tags_visible?: boolean
@@ -127,7 +95,6 @@ export type Database = {
         Update: {
           avatar_url?: string | null
           id?: string
-          settings_collections_visible?: boolean
           settings_group_by_date?: boolean | null
           settings_pinned_tags?: string[]
           settings_tags_visible?: boolean
@@ -135,21 +102,6 @@ export type Database = {
           settings_types_visible?: boolean
           updated_at?: string | null
           username?: string | null
-        }
-        Relationships: []
-      }
-      tags: {
-        Row: {
-          id: string
-          tag: string
-        }
-        Insert: {
-          id?: string
-          tag: string
-        }
-        Update: {
-          id?: string
-          tag?: string
         }
         Relationships: []
       }
@@ -257,24 +209,9 @@ export type Database = {
       }
     }
     Views: {
-      collection_tags_view: {
-        Row: {
-          bookmark_count: number | null
-          collection: string | null
-          tags: string[] | null
-        }
-        Relationships: []
-      }
       tags_count: {
         Row: {
           count: number | null
-          tag: string | null
-        }
-        Relationships: []
-      }
-      tags_count1: {
-        Row: {
-          bookmark_count: number | null
           tag: string | null
         }
         Relationships: []
@@ -311,38 +248,6 @@ export type Database = {
           url: string | null
           user: string | null
         }[]
-      }
-      get_bookmarks_by_collection: {
-        Args: {
-          collection_name: string
-        }
-        Returns: {
-          click_count: number
-          created_at: string
-          description: string | null
-          feed: string | null
-          id: string
-          image: string | null
-          modified_at: string
-          note: string | null
-          public: boolean
-          star: boolean
-          status: Database["public"]["Enums"]["status"]
-          tags: string[] | null
-          title: string | null
-          tweet: Json | null
-          type: Database["public"]["Enums"]["type"] | null
-          url: string | null
-          user: string | null
-        }[]
-      }
-      update_bookmark_tags: {
-        Args: {
-          old_tag: string
-          new_tag: string
-          user_id: string
-        }
-        Returns: undefined
       }
     }
     Enums: {
